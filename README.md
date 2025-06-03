@@ -11,7 +11,6 @@ A simple, intuitive, and beautiful expense tracking application built with Flutt
 - 🗂 **Categories** - Organize expenses into categories (Food, Transportation, Shopping, etc.)
 - 📅 **Monthly View** - View and filter expenses by month
 - 📊 **Expense Analytics** - See total expenses and category-wise breakdown
-- 🌓 **Theme Support** - Toggle between dark and light themes
 - 📱 **Responsive Design** - Optimized for all screen sizes
 - 🔄 **Real-time Sync** - Data syncs across all your devices using Firebase
 - 🔒 **Secure** - User authentication and data encryption
@@ -75,21 +74,53 @@ flutter pub get
 
 ```
 lib/
-├── models/           # Data models
-│   └── expense.dart
-├── screens/          # App screens
+├── models/                   # Data models
+│   ├── category.dart
+│   ├── debt.dart
+│   ├── expense.dart
+│   ├── expense_frequency.dart
+│   ├── income.dart
+│   └── split_expense.dart
+│
+├── screens/                  # App screens
+│   ├── add_debt_screen.dart
+│   ├── add_expense_screen.dart
+│   ├── add_income_screen.dart
+│   ├── analytics_screen.dart
+│   ├── auth_screen.dart
+│   ├── auth_wrapper.dart
+│   ├── dashboard_screen.dart
+│   ├── debt_detail_screen.dart
+│   ├── debt_management_screen.dart
+│   ├── debts_list_screen.dart
+│   ├── debts_list_screen_fixed.dart
+│   ├── expense_list_screen.dart
 │   ├── home_screen.dart
-│   └── add_expense_screen.dart
-├── services/         # Business logic and API calls
-│   └── expense_service.dart
-├── theme/            # App theming
+│   ├── income_list_screen.dart
+│   └── manage_categories_screen.dart
+│
+├── services/                 # Business logic and services
+│   ├── auth_service.dart
+│   ├── balance_service.dart
+│   ├── budget_service.dart
+│   ├── category_service.dart
+│   ├── debt_service.dart
+│   ├── expense_service.dart
+│   └── income_service.dart
+│
+├── theme/                    # App theming
 │   └── app_theme.dart
-├── widgets/          # Reusable UI components
+│
+├── utils/                    # Utility functions and helpers
+│
+├── widgets/                  # Reusable UI components
+│   ├── currency_selector.dart
 │   ├── expense_list.dart
 │   ├── month_selector.dart
 │   └── total_expense_card.dart
-├── firebase_options.dart  # Firebase configuration
-└── main.dart         # App entry point
+│
+├── firebase_options.dart     # Firebase configuration
+└── main.dart                 # App entry point
 ```
 
 ## 📦 Dependencies
