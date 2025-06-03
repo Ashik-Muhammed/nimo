@@ -46,31 +46,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA3LJ4YOlyyqRYLOrnr5ju2D8ypLD8l0CA',
-    appId: '1:927243153328:web:cec3317679dcee74f6b075',
-    messagingSenderId: '927243153328',
-    projectId: 'expense-tracker-20441',
-    authDomain: 'expense-tracker-20441.firebaseapp.com',
-    storageBucket: 'expense-tracker-20441.firebasestorage.app',
-    measurementId: 'G-867E069RV8',
-  );
-
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAEe5T0GvfMzKlNgsUyvuWbIU6-9ceY07g',
-    appId: '1:927243153328:android:5b5386ade6bb1891f6b075',
-    messagingSenderId: '927243153328',
-    projectId: 'expense-tracker-20441',
-    storageBucket: 'expense-tracker-20441.firebasestorage.app',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBa3LnURYC_2eTcpcFHAYGfivU8p2uQEDY',
-    appId: '1:927243153328:ios:7f4f925c2c3f1b1df6b075',
-    messagingSenderId: '927243153328',
-    projectId: 'expense-tracker-20441',
-    storageBucket: 'expense-tracker-20441.firebasestorage.app',
-    iosBundleId: 'com.example.expenseTracker',
-  );
+//your Firebase informations
 
 }
