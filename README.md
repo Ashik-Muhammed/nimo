@@ -1,74 +1,128 @@
-# NIMO - Personal Expense Tracker
+# 💰 NIMO - Personal Finance Manager
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat&logo=flutter&logoColor=white)](https://flutter.dev/)
+[![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black)](https://firebase.google.com/)
 
-A simple, intuitive, and beautiful expense tracking application built with Flutter and Firebase Firestore. Keep track of your daily expenses, categorize them, and gain insights into your spending habits.
+NIMO is a comprehensive personal finance management application built with Flutter and Firebase. It helps you track your expenses, manage debts, analyze spending patterns, and gain better control over your personal finances. With a clean, intuitive interface and powerful features, NIMO makes financial management simple and effective.
 
-## ✨ Features
+![NIMO App Preview](https://via.placeholder.com/800x400.png?text=NIMO+App+Preview)
+*Screenshots coming soon*
 
-- 📱 **Cross-Platform** - Works on iOS, Android, and web
-- 💰 **Expense Management** - Add, view, update, and delete expenses
-- 🗂 **Categories** - Organize expenses into categories (Food, Transportation, Shopping, etc.)
-- 📅 **Monthly View** - View and filter expenses by month
-- 📊 **Expense Analytics** - See total expenses and category-wise breakdown
-- 📱 **Responsive Design** - Optimized for all screen sizes
-- 🔄 **Real-time Sync** - Data syncs across all your devices using Firebase
-- 🔒 **Secure** - User authentication and data encryption
+## ✨ Key Features
 
-## 🚀 Getting Started
+### 💸 Expense Tracking
+- Add, edit, and delete expenses with ease
+- Categorize expenses for better organization
+- Add notes and receipts to transactions
+- Recurring expense support
+
+### 📊 Financial Insights
+- Interactive charts and graphs
+- Monthly/Yearly expense reports
+- Category-wise spending analysis
+- Custom date range filtering
+
+### 🤝 Debt Management
+- Track money you owe and are owed
+- Set due dates and payment reminders
+- Track payment history
+- Split expenses with friends
+
+### 📱 Modern & Intuitive UI
+- Clean, material design interface
+- Dark/Light theme support
+- Responsive layout for all devices
+- Quick add floating action button
+
+### 🔄 Cloud Sync & Backup
+- Real-time data synchronization
+- Secure cloud backup
+- Multi-device support
+- Offline functionality
+
+### 🔒 Security & Privacy
+- End-to-end encryption
+- Biometric authentication
+- Secure cloud storage
+- Data export options
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Flutter SDK (latest stable version)
+- Flutter SDK (latest stable version recommended)
 - Dart SDK (comes with Flutter)
-- Firebase project
-- Android Studio / Xcode (for running on emulator/simulator)
-- Physical device (optional but recommended for testing)
+- Firebase account
+- Android Studio / Xcode (for emulators/simulators)
 - Git (for version control)
+- Physical device (recommended for testing)
 
-### Clone the Repository
+### Installation
 
-```bash
-git clone https://github.com/yourusername/expense_tracker.git
-cd expense_tracker
-```
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Ashik-Muhammed/nimo.git
+   cd nimo
+   ```
 
-### Install Dependencies
+2. **Install dependencies**
+   ```bash
+   flutter pub get
+   ```
 
-```bash
-flutter pub get
-```
-
-## 🔧 Firebase Setup
-
-1. **Create a Firebase Project**
-   - Go to the [Firebase Console](https://console.firebase.google.com/)
-   - Click "Add project" and follow the setup wizard
-   - Enable Google Analytics (recommended)
-
-2. **Set up Authentication**
-   - In the Firebase Console, go to Authentication
-   - Click "Get Started" and enable "Email/Password" sign-in method
-
-3. **Set up Firestore Database**
-   - Go to Firestore Database in the Firebase Console
-   - Click "Create database" in production mode
-   - Choose a location close to your users
-   - Set security rules to start in test mode
-
-4. **Add Firebase to Your App**
-   - In the Firebase Console, click the Android/iOS icon to add your app
-   - Follow the setup instructions to download the config files
-   - Place the config files in the appropriate directories:
+3. **Set up Firebase**
+   - Create a new Firebase project at [Firebase Console](https://console.firebase.google.com/)
+   - Add a new Android/iOS app in Firebase Console
+   - Download the configuration files and place them in the correct directories:
      - Android: `android/app/google-services.json`
      - iOS: `ios/Runner/GoogleService-Info.plist`
 
-5. **Configure Firebase Options**
-   - Run the following command to generate Firebase options:
-     ```bash
-     flutterfire configure
-     ```
-   - This will create the necessary configuration files automatically
+4. **Run the app**
+   ```bash
+   flutter run
+   ```
+
+## 🔧 Advanced Setup
+
+### Firebase Configuration
+
+1. **Authentication Setup**
+   - Enable Email/Password authentication in Firebase Console
+   - (Optional) Set up Google Sign-In or other providers
+   - Configure password reset email templates
+
+2. **Cloud Firestore Rules**
+   Set up appropriate security rules in Firebase Console:
+   ```javascript
+   rules_version = '2';
+   service cloud.firestore {
+     match /databases/{database}/documents {
+       match /users/{userId}/{document=**} {
+         allow read, write: if request.auth != null && request.auth.uid == userId;
+       }
+     }
+   }
+   ```
+
+3. **Firebase Storage**
+   - Set up Firebase Storage for receipt images
+   - Configure storage security rules
+   - (Optional) Set up Cloud Functions for additional processing
+
+### Environment Variables
+Create a `.env` file in the root directory with your configuration:
+```env
+FIREBASE_API_KEY=your_api_key
+FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+FIREBASE_PROJECT_ID=your-project-id
+FIREBASE_STORAGE_BUCKET=your-bucket.appspot.com
+FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+FIREBASE_APP_ID=your-app-id
+FIREBASE_MEASUREMENT_ID=G-XXXXXXXXXX
+```
+
+Add `.env` to your `.gitignore` file to keep sensitive information secure.
 
 ## 🏗 Project Structure
 
@@ -206,9 +260,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📬 Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_twitter) - your.email@example.com
 
-Project Link: [https://github.com/yourusername/expense_tracker](https://github.com/yourusername/expense_tracker)
+Project Link: [https://github.com/Ashik-Muhammed/nimo](https://github.com/Ashik-Muhammed/nimo)
 
 ## 🙏 Acknowledgments
 
