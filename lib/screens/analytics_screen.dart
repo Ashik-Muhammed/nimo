@@ -788,7 +788,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             ),
             title: Text(entry.key),
             trailing: Text(
-              '\₹${entry.value.toStringAsFixed(2)} ($percentage%)',
+              '₹${entry.value.toStringAsFixed(2)} ($percentage%)',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           );

@@ -6,11 +6,11 @@ class CurrencySelector extends StatefulWidget {
   final Map<String, double>? exchangeRates;
 
   const CurrencySelector({
-    Key? key,
+    super.key,
     this.initialCurrency = 'USD',
     required this.onCurrencyChanged,
     this.exchangeRates,
-  }) : super(key: key);
+  });
 
   @override
   State<CurrencySelector> createState() => _CurrencySelectorState();
@@ -39,7 +39,7 @@ class _CurrencySelectorState extends State<CurrencySelector> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      value: _selectedCurrency,
+      initialValue: _selectedCurrency,
       decoration: const InputDecoration(
         labelText: 'Currency',
         border: OutlineInputBorder(),

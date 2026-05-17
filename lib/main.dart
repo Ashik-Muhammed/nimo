@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 import 'package:firebase_core/firebase_core.dart';
@@ -17,12 +18,26 @@ import 'package:expense_tracker/screens/add_debt_screen.dart';
 
 Future<FirebaseApp> _initializeFirebase() async {
   try {
-    return await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    developer.log('Initializing Firebase...', name: 'App');
+    // Try initializing without options first (uses google-services.json)
+    FirebaseApp app;
+    try {
+      app = await Firebase.initializeApp();
+      developer.log('Firebase initialized with default options', name: 'App');
+    } catch (e) {
+      // Fallback to platform-specific options
+      developer.log('Default initialization failed, trying platform options', name: 'App');
+      developer.log('Platform: ${defaultTargetPlatform}', name: 'App');
+      app = await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      developer.log('Firebase initialized with platform options', name: 'App');
+    }
+    return app;
   } catch (error, stackTrace) {
     developer.log('Firebase initialization error: $error', name: 'App');
     developer.log('Stack trace: $stackTrace', name: 'App');
+    developer.log('Error type: ${error.runtimeType}', name: 'App');
     // Re-throw the error to be handled by the FutureBuilder
     rethrow;
   }
@@ -32,17 +47,7 @@ void main() async {
   // Ensure Flutter binding is initialized
   WidgetsFlutterBinding.ensureInitialized();
   
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  } catch (e, stackTrace) {
-    developer.log('Error initializing Firebase: $e', name: 'App');
-    developer.log('Stack trace: $stackTrace', name: 'App');
-    // Continue with app initialization even if Firebase fails
-  }
-  
-  // Initialize app
+  // Initialize app - Firebase will be initialized in AppProviders
   runApp(const MyApp());
 }
 

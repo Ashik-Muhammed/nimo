@@ -168,12 +168,9 @@ class DebtService {
         return;
       }
       
-      for (var doc in snapshot.docs) {
-        print('- ID: ${doc.id}');
-        print('  Data: ${doc.data()}');
-      }
+     
+    // ignore: empty_catches
     } catch (e) {
-      print('Error listing debt documents: $e');
     }
   }
 }

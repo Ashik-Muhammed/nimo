@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -382,7 +384,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                             ),
                             const SizedBox(height: 8),
                             DropdownButtonFormField<String>(
-                              value: _commonCategories.contains(_selectedCategory) ? _selectedCategory : _commonCategories.first,
+                              initialValue: _commonCategories.contains(_selectedCategory) ? _selectedCategory : _commonCategories.first,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -513,7 +515,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                             if (_isRecurring) ...[
                               const SizedBox(height: 16),
                               DropdownButtonFormField<ExpenseFrequency>(
-                                value: _selectedFrequency == ExpenseFrequency.oneTime ? null : _selectedFrequency,
+                                initialValue: _selectedFrequency == ExpenseFrequency.oneTime ? null : _selectedFrequency,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),

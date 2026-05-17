@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -30,8 +32,8 @@ abstract class DashboardScreenState extends State<DashboardScreen> {
   Future<void> _loadDebts();
   
   // State variables for financial data
-  double _totalIncome = 0.0;
-  double _totalExpenses = 0.0;
+  final double _totalIncome = 0.0;
+  final double _totalExpenses = 0.0;
   
   // Make loadUserData accessible to HomeScreen
   double get balance => _totalIncome - _totalExpenses;

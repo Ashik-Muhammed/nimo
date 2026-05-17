@@ -46,6 +46,29 @@ class DefaultFirebaseOptions {
     }
   }
 
-//your Firebase informations
+  static FirebaseOptions get web => FirebaseOptions(
+        apiKey: 'YOUR_WEB_API_KEY',
+        appId: 'YOUR_WEB_APP_ID',
+        messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
+        projectId: 'YOUR_PROJECT_ID',
+        authDomain: 'YOUR_PROJECT_ID.firebaseapp.com',
+        storageBucket: 'YOUR_PROJECT_ID.appspot.com',
+      );
 
+  static FirebaseOptions get android => FirebaseOptions(
+        apiKey: 'AIzaSyAEe5T0GvfMzKlNgsUyvuWbIU6-9ceY07g',
+        appId: '1:927243153328:android:5b5386ade6bb1891f6b075',
+        messagingSenderId: '927243153328',
+        projectId: 'expense-tracker-20441',
+        storageBucket: 'expense-tracker-20441.appspot.com',
+      );
+
+  static FirebaseOptions get ios => FirebaseOptions(
+        apiKey: 'YOUR_IOS_API_KEY',
+        appId: 'YOUR_IOS_APP_ID',
+        messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
+        projectId: 'YOUR_PROJECT_ID',
+        storageBucket: 'YOUR_PROJECT_ID.appspot.com',
+        iosBundleId: 'YOUR_IOS_BUNDLE_ID',
+      );
 }

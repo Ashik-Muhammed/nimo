@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -390,7 +392,7 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
                   ),
                   const SizedBox(height: 16),
                   DropdownButtonFormField<String?>(
-                    value: _selectedSource,
+                    initialValue: _selectedSource,
                     decoration: InputDecoration(
                       labelText: 'Source',
                       labelStyle: const TextStyle(
@@ -513,7 +515,7 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
                   ),
                   if (_isRecurring) ...[
                     DropdownButtonFormField<IncomeFrequency>(
-                      value: _selectedFrequency,
+                      initialValue: _selectedFrequency,
                       decoration: InputDecoration(
                         labelText: 'Frequency',
                         labelStyle: TextStyle(
