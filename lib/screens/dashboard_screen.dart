@@ -11,6 +11,7 @@ import 'package:expense_tracker/services/expense_service.dart';
 import 'package:expense_tracker/services/budget_service.dart';
 import 'package:expense_tracker/services/income_service.dart';
 import 'package:expense_tracker/services/balance_service.dart';
+import 'package:expense_tracker/services/net_worth_service.dart';
 import 'package:expense_tracker/models/expense.dart' as expense_model;
 import 'package:expense_tracker/models/debt.dart';
 import 'package:expense_tracker/screens/debt_detail_screen.dart';
@@ -30,6 +31,7 @@ abstract class DashboardScreenState extends State<DashboardScreen> {
   Future<void> _loadBudget();
   Future<void> _loadExpenses(BuildContext context);
   Future<void> _loadDebts();
+  Future<void> _loadNetWorth(BuildContext context);
   
   // State variables for financial data
   final double _totalIncome = 0.0;
@@ -47,6 +49,7 @@ abstract class DashboardScreenState extends State<DashboardScreen> {
         _loadBudget(),
         _loadExpenses(context),
         _loadDebts(),
+        _loadNetWorth(context),
       ]);
     } catch (e) {
       debugPrint('Error loading user data: $e');
@@ -90,6 +93,12 @@ class _DashboardScreenState extends DashboardScreenState {
   List<expense_model.Expense> _recentExpenses = [];
   List<expense_model.Expense> _expenses = [];
   List<Debt> _activeDebts = [];
+  
+  // Net worth data
+  double _totalAssets = 0.0;
+  double _totalLiabilities = 0.0;
+  double _netWorth = 0.0;
+  double _savingsRate = 0.0;
 
   // Formatters
   final _currencyFormat = NumberFormat.currency(symbol: '₹', decimalDigits: 2, locale: 'en_IN');
@@ -270,6 +279,12 @@ class _DashboardScreenState extends DashboardScreenState {
           case DebtType.borrowed:
           case DebtType.loan:
           case DebtType.creditCard:
+          case DebtType.homeLoan:
+          case DebtType.personalLoan:
+          case DebtType.vehicleLoan:
+          case DebtType.educationLoan:
+          case DebtType.goldLoan:
+          case DebtType.businessLoan:
             owed += remaining;
             break;
             
@@ -290,6 +305,29 @@ class _DashboardScreenState extends DashboardScreenState {
     } catch (e) {
       debugPrint('Error loading debts: $e');
       rethrow;
+    }
+  }
+
+  @override
+  Future<void> _loadNetWorth(BuildContext context) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) return;
+
+    try {
+      final netWorthService = Provider.of<NetWorthService>(context, listen: false);
+      final snapshot = await netWorthService.calculateNetWorth(userId);
+      
+      if (mounted) {
+        setState(() {
+          _totalAssets = snapshot.totalAssets;
+          _totalLiabilities = snapshot.totalLiabilities;
+          _netWorth = snapshot.netWorth;
+          _savingsRate = snapshot.savingsRate;
+        });
+      }
+    } catch (e) {
+      debugPrint('Error loading net worth: $e');
+      // Don't rethrow - net worth is optional for dashboard
     }
   }
 

@@ -3,6 +3,7 @@ import 'package:expense_tracker/screens/dashboard_screen.dart';
 import 'package:expense_tracker/screens/expense_list_screen.dart';
 import 'package:expense_tracker/screens/income_list_screen.dart';
 import 'package:expense_tracker/screens/debts_list_screen.dart';
+import 'package:expense_tracker/screens/loan_tracking_screen.dart';
 import 'package:expense_tracker/screens/add_debt_screen.dart';
 import 'package:expense_tracker/screens/add_expense_screen.dart';
 import 'package:expense_tracker/screens/add_income_screen.dart';
@@ -107,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
     _searchController = TextEditingController();
     _loadUser();
   }
@@ -162,6 +163,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               builder: (context) => AddDebtScreen(debtService: debtService),
             ),
           );
+        } else if (_tabController.index == 4) {
+          // Loans tab - Add new loan (same as debt for now)
+          final debtService = Provider.of<DebtService>(context, listen: false);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddDebtScreen(debtService: debtService),
+            ),
+          );
         }
       },
       child: Icon(
@@ -169,7 +179,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           ? Icons.add 
           : _tabController.index == 2 
             ? Icons.attach_money 
-            : Icons.credit_card,
+            : _tabController.index == 3
+              ? Icons.credit_card
+              : Icons.account_balance,
       ),
     );
   }
@@ -259,6 +271,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 Tab(icon: Icon(Icons.money_off), text: 'Expenses'),
                 Tab(icon: Icon(Icons.attach_money), text: 'Income'),
                 Tab(icon: Icon(Icons.credit_card), text: 'Debts'),
+                Tab(icon: Icon(Icons.account_balance), text: 'Loans'),
                 Tab(icon: Icon(Icons.bar_chart_sharp), text: 'Analytics'),
               ],
             ),
@@ -273,6 +286,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 const ExpenseListScreen(),
                 const IncomeListScreen(),
                 const DebtsListScreen(),
+                const LoanTrackingScreen(),
                 const AnalyticsScreen(),
               ],
             ),

@@ -54,6 +54,12 @@ class _DebtsListScreenState extends State<DebtsListScreen> {
           case DebtType.borrowed:
           case DebtType.loan:
           case DebtType.creditCard:
+          case DebtType.homeLoan:
+          case DebtType.personalLoan:
+          case DebtType.vehicleLoan:
+          case DebtType.educationLoan:
+          case DebtType.goldLoan:
+          case DebtType.businessLoan:
             owed.add(debt);
             break;
             

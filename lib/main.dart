@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show defaultTargetPlatform;
 import 'dart:developer' as developer;
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -11,6 +12,8 @@ import 'package:expense_tracker/services/debt_service.dart';
 import 'package:expense_tracker/services/balance_service.dart';
 import 'package:expense_tracker/services/income_service.dart';
 import 'package:expense_tracker/services/budget_service.dart';
+import 'package:expense_tracker/services/account_service.dart';
+import 'package:expense_tracker/services/net_worth_service.dart';
 import 'package:expense_tracker/screens/auth_wrapper.dart';
 import 'package:expense_tracker/theme/app_theme.dart';
 import 'package:expense_tracker/screens/add_expense_screen.dart';
@@ -27,7 +30,7 @@ Future<FirebaseApp> _initializeFirebase() async {
     } catch (e) {
       // Fallback to platform-specific options
       developer.log('Default initialization failed, trying platform options', name: 'App');
-      developer.log('Platform: ${defaultTargetPlatform}', name: 'App');
+      developer.log('Platform: $defaultTargetPlatform', name: 'App');
       app = await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
@@ -93,6 +96,11 @@ class AppProviders extends StatelessWidget {
             Provider(create: (_) => DebtService()),
             Provider(create: (_) => IncomeService()),
             Provider(create: (_) => BudgetService()),
+            Provider(create: (_) => AccountService()),
+            Provider(create: (_) => NetWorthService(
+              accountService: AccountService(),
+              debtService: DebtService(),
+            )),
           ],
           child: child,
         );

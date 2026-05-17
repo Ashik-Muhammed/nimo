@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 enum AccountType {
   // Banking
   savings('Savings Account'),
@@ -99,7 +97,7 @@ class Account {
       if (type == null) return AccountType.savings;
       try {
         return AccountType.values.firstWhere(
-          (e) => e.toString() == 'AccountType.${type}' || 
+          (e) => e.toString() == 'AccountType.$type' || 
                 e.displayName.toLowerCase() == type.toLowerCase(),
           orElse: () => AccountType.savings,
         );

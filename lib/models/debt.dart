@@ -4,6 +4,14 @@ enum DebtType {
   loan('Loan (I owe)'),
   creditCard('Credit Card (I owe)'),
   
+  // Loan Types
+  homeLoan('Home Loan'),
+  personalLoan('Personal Loan'),
+  vehicleLoan('Vehicle Loan'),
+  educationLoan('Education Loan'),
+  goldLoan('Gold Loan'),
+  businessLoan('Business Loan'),
+  
   // Money others owe to you
   lent('Lent (Owed to me)');
   
@@ -12,6 +20,15 @@ enum DebtType {
   
   @override
   String toString() => displayName;
+  
+  bool get isLoan => [
+    DebtType.homeLoan,
+    DebtType.personalLoan,
+    DebtType.vehicleLoan,
+    DebtType.educationLoan,
+    DebtType.goldLoan,
+    DebtType.businessLoan,
+  ].contains(this);
 }
 
 class Debt {
@@ -29,6 +46,14 @@ class Debt {
   final bool isPaid;
   final DateTime? paidDate;
   final String currencyCode;
+  
+  // Loan-specific fields
+  final int? tenureMonths; // Loan tenure in months
+  final double? emi; // Equated Monthly Installment
+  final DateTime? startDate; // Loan start date
+  final String? amortizationSchedule; // JSON string of amortization schedule
+  final double? prepaymentAmount; // Total prepayment made
+  final int? prepaymentCount; // Number of prepayments made
 
   // Remove const constructor to allow non-const values
   Debt({
@@ -46,6 +71,13 @@ class Debt {
     this.isPaid = false,
     this.paidDate,
     this.currencyCode = 'USD',
+    // Loan-specific fields
+    this.tenureMonths,
+    this.emi,
+    this.startDate,
+    this.amortizationSchedule,
+    this.prepaymentAmount,
+    this.prepaymentCount,
   }) : createdAt = createdAt ?? DateTime.now();
 
   // Single fromMap constructor
@@ -83,6 +115,15 @@ class Debt {
           ? DateTime.fromMillisecondsSinceEpoch(map['paidDate'] as int)
           : null,
       currencyCode: map['currencyCode'] as String? ?? 'USD',
+      // Loan-specific fields
+      tenureMonths: map['tenureMonths'] as int?,
+      emi: (map['emi'] as num?)?.toDouble(),
+      startDate: map['startDate'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['startDate'] as int)
+          : null,
+      amortizationSchedule: map['amortizationSchedule'] as String?,
+      prepaymentAmount: (map['prepaymentAmount'] as num?)?.toDouble(),
+      prepaymentCount: map['prepaymentCount'] as int?,
     );
   }
 
@@ -103,6 +144,13 @@ class Debt {
       'isPaid': isPaid,
       'paidDate': paidDate?.millisecondsSinceEpoch,
       'currencyCode': currencyCode,
+      // Loan-specific fields
+      'tenureMonths': tenureMonths,
+      'emi': emi,
+      'startDate': startDate?.millisecondsSinceEpoch,
+      'amortizationSchedule': amortizationSchedule,
+      'prepaymentAmount': prepaymentAmount,
+      'prepaymentCount': prepaymentCount,
     };
   }
 
@@ -122,6 +170,13 @@ class Debt {
     bool? isPaid,
     DateTime? paidDate,
     String? currencyCode,
+    // Loan-specific fields
+    int? tenureMonths,
+    double? emi,
+    DateTime? startDate,
+    String? amortizationSchedule,
+    double? prepaymentAmount,
+    int? prepaymentCount,
   }) {
     return Debt(
       id: id ?? this.id,
@@ -138,6 +193,13 @@ class Debt {
       isPaid: isPaid ?? this.isPaid,
       paidDate: paidDate ?? this.paidDate,
       currencyCode: currencyCode ?? this.currencyCode,
+      // Loan-specific fields
+      tenureMonths: tenureMonths ?? this.tenureMonths,
+      emi: emi ?? this.emi,
+      startDate: startDate ?? this.startDate,
+      amortizationSchedule: amortizationSchedule ?? this.amortizationSchedule,
+      prepaymentAmount: prepaymentAmount ?? this.prepaymentAmount,
+      prepaymentCount: prepaymentCount ?? this.prepaymentCount,
     );
   }
 
