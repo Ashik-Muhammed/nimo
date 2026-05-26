@@ -14,6 +14,7 @@ import 'package:expense_tracker/services/income_service.dart';
 import 'package:expense_tracker/services/budget_service.dart';
 import 'package:expense_tracker/services/account_service.dart';
 import 'package:expense_tracker/services/net_worth_service.dart';
+import 'package:expense_tracker/services/credit_card_service.dart';
 import 'package:expense_tracker/screens/auth_wrapper.dart';
 import 'package:expense_tracker/theme/app_theme.dart';
 import 'package:expense_tracker/screens/add_expense_screen.dart';
@@ -101,6 +102,7 @@ class AppProviders extends StatelessWidget {
               accountService: AccountService(),
               debtService: DebtService(),
             )),
+            Provider(create: (_) => CreditCardService()),
           ],
           child: child,
         );

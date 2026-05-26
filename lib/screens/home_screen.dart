@@ -4,9 +4,12 @@ import 'package:expense_tracker/screens/expense_list_screen.dart';
 import 'package:expense_tracker/screens/income_list_screen.dart';
 import 'package:expense_tracker/screens/debts_list_screen.dart';
 import 'package:expense_tracker/screens/loan_tracking_screen.dart';
+import 'package:expense_tracker/screens/credit_cards_screen.dart';
 import 'package:expense_tracker/screens/add_debt_screen.dart';
 import 'package:expense_tracker/screens/add_expense_screen.dart';
 import 'package:expense_tracker/screens/add_income_screen.dart';
+import 'package:expense_tracker/screens/add_loan_screen.dart';
+import 'package:expense_tracker/screens/add_credit_card_screen.dart';
 import 'package:expense_tracker/services/expense_service.dart';
 import 'package:expense_tracker/services/debt_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -108,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 7, vsync: this);
     _searchController = TextEditingController();
     _loadUser();
   }
@@ -164,12 +167,20 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             ),
           );
         } else if (_tabController.index == 4) {
-          // Loans tab - Add new loan (same as debt for now)
+          // Loans tab - Add new loan
           final debtService = Provider.of<DebtService>(context, listen: false);
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddDebtScreen(debtService: debtService),
+              builder: (context) => AddLoanScreen(debtService: debtService),
+            ),
+          );
+        } else if (_tabController.index == 5) {
+          // Credit Cards tab - Add new credit card
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddCreditCardScreen(),
             ),
           );
         }
@@ -181,7 +192,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             ? Icons.attach_money 
             : _tabController.index == 3
               ? Icons.credit_card
-              : Icons.account_balance,
+              : _tabController.index == 4
+                ? Icons.account_balance
+                : Icons.payment,
       ),
     );
   }
@@ -272,6 +285,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 Tab(icon: Icon(Icons.attach_money), text: 'Income'),
                 Tab(icon: Icon(Icons.credit_card), text: 'Debts'),
                 Tab(icon: Icon(Icons.account_balance), text: 'Loans'),
+                Tab(icon: Icon(Icons.payment), text: 'Cards'),
                 Tab(icon: Icon(Icons.bar_chart_sharp), text: 'Analytics'),
               ],
             ),
@@ -287,6 +301,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 const IncomeListScreen(),
                 const DebtsListScreen(),
                 const LoanTrackingScreen(),
+                const CreditCardsScreen(),
                 const AnalyticsScreen(),
               ],
             ),
